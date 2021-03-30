@@ -6,6 +6,9 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 //make an express app
 const app = express();
+//solve the encoding
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
 //require express router
 const blogRouter = require("./routes/blog-routes");
 //connect to the db
@@ -24,8 +27,6 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 //log some information about the request
 app.use(morgan("tiny"));
-//solve the encoding
-app.use(express.urlencoded({ extended: true }));
 //save data to the db
 app.get("/", (req, res) => {
   res.redirect("/blogs");
